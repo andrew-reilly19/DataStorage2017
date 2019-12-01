@@ -2,7 +2,9 @@ class DB:
     def __init__(self, db):
         self.db = db
 
-    def get(self, country_name='%', order='country', *cols='*'):
+    def get(self, cols, country_name="%", order="country"):
+        if not cols:
+            cols = ("*",)
         cur = self.db.cursor()
 
         query = """
@@ -10,13 +12,14 @@ class DB:
         WHERE (CASE WHEN %s = '%' THEN TRUE ELSE country = %s END)
         ORDER BY %s;"""
 
-        cur.execute(query, (tup(cols), country_name, order))
+        cur.execute(query, (tuple(cols), country_name, order))
         rows = cur.fetchall()
         cur.close()
         return rows
 
-
-    def get_year(self, country_name='%', year, order='country', *cols='*'):
+    def get_year(self, year, cols, country_name="%", order="country"):
+        if not cols:
+            cols = ("*",)
         cur = self.db.cursor()
 
         query = """
@@ -25,11 +28,10 @@ class DB:
         AND year = %s
         ORDER BY %s;"""
 
-        cur.execute(query, (tup(cols), country_name, year, order))
+        cur.execute(query, (tuple(cols), country_name, year, order))
         rows = cur.fetchall()
         cur.close()
         return rows
-
 
     def get_scores(self):
         cur = self.db.cursor()
