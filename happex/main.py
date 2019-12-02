@@ -1,5 +1,5 @@
 from happex import app
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 #Homepage - worldmap data or options for each page?
 @app.route("/")
@@ -7,9 +7,8 @@ def hello():
     #initial map:
     country, score = app.db.get_world_scores()
 
-    #plotting
-#    plot = worldmap_plot
-#    return plot
+    #for plotting - replace this line
+    print(country, score)
 
 def query():
     #some way to display and import map options
@@ -29,14 +28,13 @@ def query():
     if select == "naffect":
         ydata = naffect
 
-    #replotting worldmap with selected data
-    plt.plot(countries, ydata)
-    plt.show()
+    #replotting worldmap with selected data - replace this line
+    print(countries, ydata)
 
 #Scores Page
-@app.route("/scores")
-def scores():
-    return app.db.get_scores()
+#@app.route("/scores")
+#def scores():
+#    return app.db.get_scores()
 
 #Generosity
 @app.route("/generosity")

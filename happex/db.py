@@ -33,8 +33,6 @@ class DB:
         cur.close()
         return rows
 
-
-
     # Functions to use for initial map:
     # List of countries in order by country
     def get_2018_countries(self):
@@ -93,4 +91,3 @@ class DB:
             country.append(item[0])
             score.append(item[1])
         return country, score
-
