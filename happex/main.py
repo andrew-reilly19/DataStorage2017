@@ -5,21 +5,21 @@ from happex import app
 def hello():
     #initial map:
     country, score = app.db.get_world_scores()
-    
+
     #plotting
-    plot = worldmap_plot
-    return plot
+#    plot = worldmap_plot
+#    return plot
 
 def query():
     #some way to display and import map options
     select = query()
-    
+
     #loading in data
     countries = app.db.get_2018_countries
     ladder = app.db.get_2018_ladder
     paffect = app.db.get_2018_paffect
     naffect = app.db.get_2018_naffect
-    
+
     #if statements to choose what to plot by
     if select == "ladder":
         ydata = ladder
@@ -27,9 +27,9 @@ def query():
         ydata = paffect
     if select == "naffect":
         ydata = naffect
-    
+
     #replotting worldmap with selected data
-    plot = plt.plot(countries, ydata)
+#    plot = plt.plot(countries, ydata)
 
 #Scores Page
 @app.route("/scores")

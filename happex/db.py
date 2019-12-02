@@ -35,7 +35,7 @@ class DB:
 
 
 
-# Functions to use for initial map:
+    # Functions to use for initial map:
     # List of countries in order by country
     def get_2018_countries(self):
         cur = self.db.cursor()
@@ -46,7 +46,7 @@ class DB:
         for item in c:
             country.append (item[0])
         return country
-    
+
     # List of life ladder scores in order by country
     def get_2018_ladder(self):
         cur = self.db.cursor()
@@ -57,7 +57,7 @@ class DB:
         for item in c:
             ladder.append (item[0])
         return ladder
-    
+
     # List of positive affects in order by country
     def get_2018_paffect(self):
         cur = self.db.cursor()
@@ -68,7 +68,7 @@ class DB:
         for item in c:
             paffect.append (item[0])
         return paffect
-    
+
     # List of negative affects in order by country
     def get_2018_naffect(self):
         cur = self.db.cursor()
@@ -81,7 +81,7 @@ class DB:
         return naffect
 
     # Using Score table
-    # List of countries and scores 
+    # List of countries and scores
     def get_world_scores(self):
         cur = self.db.cursor()
         country = []
@@ -93,5 +93,4 @@ class DB:
             country.append (item[0])
             score.append (item[1])
         return country, score
-    
-    
+
