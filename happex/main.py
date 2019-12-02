@@ -12,7 +12,7 @@ def hello():
 
 def query():
     #some way to display and import map options
-    select = query()
+    select = "input here"
 
     #loading in data
     countries = app.db.get_2018_countries
