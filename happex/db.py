@@ -41,10 +41,10 @@ class DB:
         cur = self.db.cursor()
         country = []
         cur.execute("SELECT country FROM happy WHERE year=2018 ORDER BY country;")
-        c = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        for item in c:
-            country.append (item[0])
+        for item in rows:
+            country.append(item[0])
         return country
 
     # List of life ladder scores in order by country
@@ -52,10 +52,10 @@ class DB:
         cur = self.db.cursor()
         ladder = []
         cur.execute("SELECT lifeladder FROM happy WHERE year=2018 ORDER BY country;")
-        c = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        for item in c:
-            ladder.append (item[0])
+        for item in rows:
+            ladder.append(item[0])
         return ladder
 
     # List of positive affects in order by country
@@ -63,10 +63,10 @@ class DB:
         cur = self.db.cursor()
         paffect = []
         cur.execute("SELECT paffect FROM happy WHERE year=2018 ORDER BY country;")
-        c = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        for item in c:
-            paffect.append (item[0])
+        for item in rows:
+            paffect.append(item[0])
         return paffect
 
     # List of negative affects in order by country
@@ -74,10 +74,10 @@ class DB:
         cur = self.db.cursor()
         naffect = []
         cur.execute("SELECT naffect FROM happy WHERE year=2018 ORDER BY country;")
-        c = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        for item in c:
-            naffect.append (item[0])
+        for item in rows:
+            naffect.append(item[0])
         return naffect
 
     # Using Score table
@@ -87,10 +87,10 @@ class DB:
         country = []
         score = []
         cur.execute("SELECT country, score FROM score ORDER BY country;")
-        c = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        for item in c:
-            country.append (item[0])
-            score.append (item[1])
+        for item in rows:
+            country.append(item[0])
+            score.append(item[1])
         return country, score
 
