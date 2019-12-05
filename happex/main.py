@@ -1,4 +1,5 @@
 import json
+from flask import render_template
 from happex import app
 
 # import matplotlib.pyplot as plt
@@ -32,6 +33,11 @@ def query():
     # replotting worldmap with selected data - replace this line
     print(countries, ydata)
 """
+
+
+@app.route("/hello")
+def hello():
+    return render_template("hello.html")
 
 
 @app.route("/scores")
