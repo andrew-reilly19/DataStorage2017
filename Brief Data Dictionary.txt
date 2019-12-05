@@ -1,0 +1,25 @@
+Brief Data Dictionary:
+
+Life Ladder � Average response of this question: �Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?�
+
+GDP Per Capita � log of GDP per capita in PPP at constant 2011 international dollar prices.  When GDP is not known, they use numbers from the earlier release and adjust the levels with a formula to estimate it.
+
+Social Support � Average of binary responses (either 0 or 1) to this question: �If you were in trouble, do you have relatives or friends you can count on to help you whenever you need them, or not?�
+
+Life Expectancy at Birth - Based on data from the WHO (World Health Organization)
+
+Freedom to make life choices � Average of responses to this question: �Are you satisfied or dissatisfied with your freedom to choose what you do with your life?�
+
+Generosity - Generosity is the residual of regressing national average of response to the GWP question �Have you donated money to a charity in the past month?� on GDP per capita.
+
+Perceptions of Corruption � The average of the responses to two binary questions: �Is corruption widespread throughout the government or not?� and �Is corruption widespread within business or not?�
+
+Positive Affect � The average of the responses to three questions: �Did you experience the following feelings during A LOT OF THE DAY yesterday? � Happiness/Enjoyment� and �Did you smile or laugh a lot yesterday?�
+
+Negative Affect � The average of the responses to three questions: �Did you experience the following feelings during A LOT OF THE DAY yesterday? - Worry/Sadness/Anger�
+
+Confidence in National Government � Data taken from the Gallup World Poll, taking the average of a number of questions asked reflecting the overall confidence in the government.  Example of questions asked: �Do you have confidence in the honesty of elections?� and �Do you have confidence in the judicial system?�, etc.
+
+Democratic Quality � Data pulled from Worldwide Governance Indicators project, taking the average of two out of 6 metrics from the report (which are on a scale with a mean of 0 and a standard deviation of 1).  The two metrics used are �Voice and Accountability� and �Political Stability and Absence of Violence�.
+
+Delivery Quality � Also using data from the WGI project above, this uses the other 4 dimensions in the report � �Government Effectiveness�, �Regulatory Quality�, �Rule of Law�, �Control of Corruption�.
