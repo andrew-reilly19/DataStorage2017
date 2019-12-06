@@ -1,3 +1,6 @@
+from psycopg2 import sql
+
+
 class DB:
     def __init__(self, db):
         self.db = db
@@ -8,11 +11,18 @@ class DB:
         cur = self.db.cursor()
 
         query = """
-        SELECT %s FROM happy
-        WHERE (CASE WHEN %s = '%' THEN TRUE ELSE country = %s END)
-        ORDER BY %s;"""
+        SELECT {} FROM happy
+        WHERE (CASE WHEN %(country)s = '%%' THEN TRUE ELSE country = %(country)s END)
+        ORDER BY {};"""
 
-        cur.execute(query, (tuple(cols), country_name, order))
+        cur.execute(
+            sql.SQL(query).format(
+                sql.Composed(map(sql.Identifier, cols)).join(", "),
+                sql.Identifier(order),
+            ),
+            {"country": country_name},
+        )
+
         rows = cur.fetchall()
         cur.close()
         return rows
@@ -23,12 +33,19 @@ class DB:
         cur = self.db.cursor()
 
         query = """
-        SELECT %s FROM happy
-        WHERE (CASE WHEN %s = '%' THEN TRUE ELSE country = %s END)
-        AND year = %s
-        ORDER BY %s;"""
+        SELECT {} FROM happy
+        WHERE (CASE WHEN %(country)s = '%%' THEN TRUE ELSE country = %(country)s END)
+        AND year = %(year)s
+        ORDER BY {};"""
 
-        cur.execute(query, (tuple(cols), country_name, year, order))
+        cur.execute(
+            sql.SQL(query).format(
+                sql.Composed(map(sql.Identifier, cols)).join(", "),
+                sql.Identifier(order),
+            ),
+            {"country": country_name, "year": year},
+        )
+
         rows = cur.fetchall()
         cur.close()
         return rows
@@ -37,57 +54,40 @@ class DB:
     # List of countries in order by country
     def get_2018_countries(self):
         cur = self.db.cursor()
-        country = []
         cur.execute("SELECT country FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            country.append(item[0])
-        return country
+        return rows
 
     # List of life ladder scores in order by country
     def get_2018_ladder(self):
         cur = self.db.cursor()
-        ladder = []
         cur.execute("SELECT lifeladder FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            ladder.append(item[0])
-        return ladder
+        return rows
 
     # List of positive affects in order by country
     def get_2018_paffect(self):
         cur = self.db.cursor()
-        paffect = []
         cur.execute("SELECT paffect FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            paffect.append(item[0])
-        return paffect
+        return rows
 
     # List of negative affects in order by country
     def get_2018_naffect(self):
         cur = self.db.cursor()
-        naffect = []
         cur.execute("SELECT naffect FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            naffect.append(item[0])
-        return naffect
+        return rows
 
     # Using Score table
     # List of countries and scores
-    def get_world_scores(self):
+    def get_scores(self):
         cur = self.db.cursor()
-        country = []
-        score = []
         cur.execute("SELECT country, score FROM score ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            country.append(item[0])
-            score.append(item[1])
-        return country, score
+        return rows

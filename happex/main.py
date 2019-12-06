@@ -1,26 +1,28 @@
+import json
+from flask import render_template
 from happex import app
-#import matplotlib.pyplot as plt
 
-#Homepage - worldmap data or options for each page?
+# import matplotlib.pyplot as plt
+
+
 @app.route("/")
-def hello():
-    #initial map:
-    country, score = app.db.get_world_scores()
+def index():
+    """Homepage - worldmap data or options for each page?"""
+    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_scores())))
 
-    #for plotting - replace this line
-    print(country, score)
 
+"""
 def query():
-    #some way to display and import map options
+    # some way to display and import map options
     select = "input here"
 
-    #loading in data
+    # loading in data
     countries = app.db.get_2018_countries
     ladder = app.db.get_2018_ladder
     paffect = app.db.get_2018_paffect
     naffect = app.db.get_2018_naffect
 
-    #if statements to choose what to plot by
+    # if statements to choose what to plot by
     if select == "ladder":
         ydata = ladder
     if select == "paffect":
@@ -28,20 +30,34 @@ def query():
     if select == "naffect":
         ydata = naffect
 
-    #replotting worldmap with selected data - replace this line
+    # replotting worldmap with selected data - replace this line
     print(countries, ydata)
+"""
 
-#Scores Page
-#@app.route("/scores")
-#def scores():
-#    return app.db.get_scores()
 
-#Generosity
+@app.route("/hello")
+def hello():
+    return render_template("hello.html")
+
+
+@app.route("/scores")
+def get_scores():
+    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_scores())))
+
+
 @app.route("/generosity")
-def generosity():
-    return app.db.get_year(year=2018, cols=("country", "generosity", "paffect"))
+def get_generosity():
+    gen = [
+        (x, float(y), float(z))
+        for x, y, z in app.db.get_year(
+            year=2018, cols=("country", "generosity", "paffect")
+        )
+        if y is not None and z is not None
+    ]
+    return json.dumps(gen)
 
-#Country
+
 @app.route("/country/<country>")
-def thiscountry():
-    return app.db.get(country_name="America", cols=("year", "paffect"))
+def get_country(country):
+    paffects = app.db.get(country_name=country, cols=("year", "paffect"))
+    return json.dumps(list(map(lambda x: (x[0], float(x[1])), paffects)))
