@@ -1,21 +1,20 @@
 import json
+import plotly.offline as py
+import plotly.graph_objs as go
 from flask import render_template
 from happex import app
-
-#import plotly.offline as py
-#import plotly.graph_objs as go
 
 
 @app.route("/")
 def index():
     """Homepage - worldmap data or options for each page?"""
-    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_scores())))
+    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_all_scores())))
 
-def worldgraph1(country,score,code,title='Worldwide Happiness',reverse = False):
+def worldgraph1(ctry, data, ccode, title='Worldwide Happiness', reverse=False):
     fig = go.Figure(data=go.Choropleth(
-        locations=code,
-        z=score,
-        text=country,
+        locations=ccode,
+        z=data,
+        text=ctry,
         autocolorscale=True,
         reversescale=reverse,
         marker_line_color='darkgray',
@@ -36,22 +35,22 @@ def worldgraph1(country,score,code,title='Worldwide Happiness',reverse = False):
             showarrow=False)])
     fig.show()
 
-def worldgraph2(country,score,code,title='Worldwide Happiness',reverse = False):
+def worldgraph2(ctry, data, ccode, title='Worldwide Happiness', reverse=False):
     #reverse looks better flipped in this one, so we flip it here to keep it clear
-    reverse2=not reverse
-    data=[dict(type='choropleth',locations=code,z=score,text=country,
+    reverse2 = not reverse
+    data = [dict(type='choropleth', locations=ccode, z=data, text=ctry,
                  autocolorscale=False, reversescale=reverse2,
-                 marker=dict(line=dict(color='rgb(180, 180, 180)',width=0.5)),
-                 colorbar=dict(autotick=True,title=title,thickness=15,len=0.6,
-                               tickfont=dict(size=14),titlefont=dict(size=14)),)]
-    layout=dict(title=title,font=dict(size=18),
-                  geo=dict(showframe=False,showcoastlines=False,
+                 marker=dict(line=dict(color='rgb(180, 180, 180)', width=0.5)),
+                 colorbar=dict(autotick=True, title=title, thickness=15, len=0.6,
+                               tickfont=dict(size=14), titlefont=dict(size=14)),)]
+    layout = dict(title=title, font=dict(size=18),
+                  geo=dict(showframe=False, showcoastlines=False,
                            projection=dict(type='Mercator')))
-    fig = dict(data=data,layout=layout)
-    py.iplot(fig,validate=False,filename='world-heatmap')
+    fig = dict(data=data, layout=layout)
+    py.iplot(fig, validate=False, filename='world-heatmap')
 
-country,score,code=app.db.get_all_scores()
-worldgraph1(country,score,code,title='Worldwide Happiness 2018')
+COUNTRY, SCORE, CODE = app.db.get_all_scores()
+worldgraph1(COUNTRY, SCORE, CODE, title='Worldwide Happiness 2018')
 
 #Take input here to update map?
 """
@@ -85,7 +84,7 @@ def hello():
 
 @app.route("/scores")
 def get_scores():
-    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_scores())))
+    return json.dumps(list(map(lambda x: (x[0], float(x[1])), app.db.get_all_scores())))
 
 
 @app.route("/generosity")
@@ -101,6 +100,6 @@ def get_generosity():
 
 
 @app.route("/country/<country>")
-def get_country(country):
-    paffects = app.db.get(country_name=country, cols=("year", "paffect"))
+def get_country(ctry):
+    paffects = app.db.get(country_name=ctry, cols=("year", "paffect"))
     return json.dumps(list(map(lambda x: (x[0], float(x[1])), paffects)))
