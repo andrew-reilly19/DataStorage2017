@@ -1,7 +1,7 @@
 import json
+from flask import render_template
 import plotly.offline as py
 import plotly.graph_objs as go
-from flask import render_template
 from happex import app
 
 
