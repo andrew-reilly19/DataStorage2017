@@ -57,7 +57,24 @@ class DB:
         cur.execute("SELECT country FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        return rows
+        countries = []
+        for item in rows:
+            countries.append(item[1])
+        return countries
+
+    # Gets the matching country codes for the specified year, in order by country
+    def get_2018_codes(self):
+        cur = self.db.cursor()
+        cur.execute(
+            """SELECT alpha3 FROM happy,codes WHERE happy.country=codes.name
+                    and happy.year=2018 ORDER BY country;"""
+        )
+        rows = cur.fetchall()
+        cur.close()
+        codes = []
+        for item in rows:
+            codes.append(item[1])
+        return codes
 
     # List of life ladder scores in order by country
     def get_2018_ladder(self):
@@ -65,7 +82,10 @@ class DB:
         cur.execute("SELECT lifeladder FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        return rows
+        ladder = []
+        for item in rows:
+            ladder.append(item[1])
+        return ladder
 
     # List of positive affects in order by country
     def get_2018_paffect(self):
@@ -73,7 +93,10 @@ class DB:
         cur.execute("SELECT paffect FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        return rows
+        paffect = []
+        for item in rows:
+            paffect.append(item[1])
+        return paffect
 
     # List of negative affects in order by country
     def get_2018_naffect(self):
@@ -81,13 +104,26 @@ class DB:
         cur.execute("SELECT naffect FROM happy WHERE year=2018 ORDER BY country;")
         rows = cur.fetchall()
         cur.close()
-        return rows
+        naffect = []
+        for item in rows:
+            naffect.append(item[1])
+        return naffect
 
     # Using Score table
     # List of countries and scores
-    def get_scores(self):
+    def get_all_scores(self):
         cur = self.db.cursor()
-        cur.execute("SELECT country, score FROM score ORDER BY country;")
+        country = []
+        score = []
+        code = []
+        cur.execute(
+            """SELECT country, score, alpha3 FROM score, codes
+                    WHERE score.country = codes.name ORDER BY country;"""
+        )
         rows = cur.fetchall()
         cur.close()
-        return rows
+        for item in rows:
+            country.append(item[0])
+            score.append(item[1])
+            code.append(item[2])
+        return (country, score, code)
