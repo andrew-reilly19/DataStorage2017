@@ -117,6 +117,7 @@ class DB:
         cur.execute("""SELECT country, score, alpha3 FROM score, codes
                     WHERE score.country = codes.name ORDER BY country;""")
         rows = cur.fetchall()
+        cur.close()
         for item in rows:
             country.append(item[0])
             score.append(item[1])
