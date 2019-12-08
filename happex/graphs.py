@@ -1,4 +1,3 @@
-from flask import render_template
 import plotly.offline as py
 import plotly.graph_objs as go
 
@@ -40,4 +39,3 @@ def worldgraph2(ctry, data, ccode, title='Worldwide Happiness', reverse=False):
                            projection=dict(type='Mercator')))
     fig = dict(data=data, layout=layout)
     py.iplot(fig, validate=False, filename='world-heatmap')
-

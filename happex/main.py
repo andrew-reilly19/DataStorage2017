@@ -10,7 +10,7 @@ def index():
 
 def graph_display():
     country, score, code = app.db.get_all_scores()
-    return app.graphs.worldgraph1(country, score, code, title='Worldwide Happiness 2018')
+    return app.worldgraph1(country, score, code, title='Worldwide Happiness 2018')
 
 #Take input here to update map?
 
