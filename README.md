@@ -1,8 +1,8 @@
 # Happex
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/fuck-it-ship-it.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/does-not-contain-msg.svg)](https://forthebadge.com)
+![GitHub Build Status](https://img.shields.io/github/workflow/status/AmiliaM/DataStorage2017/Build)
+![GitHub Deploy Status](https://img.shields.io/github/workflow/status/AmiliaM/DataStorage2017/Deploy?label=deploy)
+![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fhappex.bogodynamics.io)
 
 An exploration of the connections between world happiness and various other factors.
 
@@ -16,8 +16,8 @@ Automatically deployed to [happex.bogodynamics.io](https://happex.bogodynamics.i
 
 Building Happex requires:
 - Python 3.6 or newer
-- Flask might be installed automatically but I want another bullet
-- So yeah flask
+- Postgres
+- Postgres build tools
 
 ### Building and Running Locally
 
@@ -38,5 +38,3 @@ Then...
 ## Dataset
 
 We used the [World Happiness](https://worldhappiness.report/ed/2019/) dataset.
-
-Bottom text
