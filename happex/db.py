@@ -62,11 +62,13 @@ class DB:
             countries.append(item[1])
         return countries
 
-    #Gets the matching country codes for the specified year, in order by country
+    # Gets the matching country codes for the specified year, in order by country
     def get_2018_codes(self):
         cur = self.db.cursor()
-        cur.execute("""SELECT alpha3 FROM happy,codes WHERE happy.country=codes.name
-                    and happy.year=2018 ORDER BY country;""")
+        cur.execute(
+            """SELECT alpha3 FROM happy,codes WHERE happy.country=codes.name
+                    and happy.year=2018 ORDER BY country;"""
+        )
         rows = cur.fetchall()
         cur.close()
         codes = []
@@ -111,15 +113,23 @@ class DB:
     # List of countries and scores
     def get_all_scores(self):
         cur = self.db.cursor()
-        country = []
-        score = []
-        code = []
-        cur.execute("""SELECT country, score, alpha3 FROM score, codes
-                    WHERE score.country = codes.name ORDER BY country;""")
+        cur.execute(
+            """SELECT alpha3, score FROM score, codes
+                    WHERE score.country = codes.name ORDER BY country;"""
+        )
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            country.append(item[0])
-            score.append(item[1])
-            code.append(item[2])
-        return(country, score, code)
+        return rows
+
+    def get_country(self, country):
+        cur = self.db.cursor()
+        query = """SELECT country, year,
+               lifeladder, lifeexpect,
+               socialsupport, generosity, paffect,
+               deliveryquality, perceptions
+               FROM happy INNER JOIN codes ON happy.country=codes.name
+               WHERE codes.alpha3=%s"""
+        cur.execute(query, (country,))
+        rows = cur.fetchall()
+        cur.close()
+        return rows
