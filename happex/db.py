@@ -113,17 +113,23 @@ class DB:
     # List of countries and scores
     def get_all_scores(self):
         cur = self.db.cursor()
-        country = []
-        score = []
-        code = []
         cur.execute(
-            """SELECT country, score, alpha3 FROM score, codes
+            """SELECT alpha3, score FROM score, codes
                     WHERE score.country = codes.name ORDER BY country;"""
         )
         rows = cur.fetchall()
         cur.close()
-        for item in rows:
-            country.append(item[0])
-            score.append(item[1])
-            code.append(item[2])
-        return (country, score, code)
+        return rows
+
+    def get_country(self, country):
+        cur = self.db.cursor()
+        query = """SELECT country, year,
+               lifeladder, lifeexpect,
+               socialsupport, generosity, paffect,
+               deliveryquality, perceptions
+               FROM happy INNER JOIN codes ON happy.country=codes.name
+               WHERE codes.alpha3=%s"""
+        cur.execute(query, (country,))
+        rows = cur.fetchall()
+        cur.close()
+        return rows

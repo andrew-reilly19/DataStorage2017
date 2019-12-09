@@ -17,20 +17,18 @@ def worldgraph1(ctry, data, ccode, title="Worldwide Happiness", reverse=False):
     )
     fig.update_layout(
         title_text=title,
-        geo={
-            "showframe": False,
-            "showcoastlines": False,
-            "projection_type": "equirectangular",
-        },
+        geo=dict(
+            showframe=False, showcoastlines=False, projection_type="equirectangular"
+        ),
         annotations=[
-            {
-                "x": 0.55,
-                "y": 0.1,
-                "xref": "paper",
-                "yref": "paper",
-                "text": "Source: Worldwide Happiness Report, 2019",
-                "showarrow": False,
-            }
+            dict(
+                x=0.55,
+                y=0.1,
+                xref="paper",
+                yref="paper",
+                text="Source: Worldwide Happiness Report, 2019",
+                showarrow=False,
+            )
         ],
     )
     fig.show()
@@ -40,32 +38,30 @@ def worldgraph2(ctry, data, ccode, title="Worldwide Happiness", reverse=False):
     # reverse looks better flipped in this one, so we flip it here to keep it clear
     reverse2 = not reverse
     data = [
-        {
-            "type": "choropleth",
-            "locations": ccode,
-            "z": data,
-            "text": ctry,
-            "autocolorscale": False,
-            "reversescale": reverse2,
-            "marker": {"line": {"color": "rgb(180, 180, 180)", "width": 0.5}},
-            "colorbar": {
-                "autotick": True,
-                "title": title,
-                "thickness": 15,
-                "len": 0.6,
-                "tickfont": {"size": 14},
-                "titlefont": {"size": 14},
-            },
-        }
+        dict(
+            type="choropleth",
+            locations=ccode,
+            z=data,
+            text=ctry,
+            autocolorscale=False,
+            reversescale=reverse2,
+            marker=dict(line=dict(color="rgb(180, 180, 180)", width=0.5)),
+            colorbar=dict(
+                autotick=True,
+                title=title,
+                thickness=15,
+                len=0.6,
+                tickfont=dict(size=14),
+                titlefont=dict(size=14),
+            ),
+        )
     ]
-    layout = {
-        "title": title,
-        "font": {"size": 18},
-        "geo": {
-            "showframe": False,
-            "showcoastlines": False,
-            "projection": {"type": "Mercator"},
-        },
-    }
-    fig = {"data": data, "layout": layout}
+    layout = dict(
+        title=title,
+        font=dict(size=18),
+        geo=dict(
+            showframe=False, showcoastlines=False, projection=dict(type="Mercator")
+        ),
+    )
+    fig = dict(data=data, layout=layout)
     py.iplot(fig, validate=False, filename="world-heatmap")
