@@ -140,7 +140,9 @@ disable=print-statement,
         comprehension-escape,
         missing-docstring,
         cyclic-import,
-        pointless-string-statement
+        pointless-string-statement,
+        wrong-import-position,
+        wrong-import-order
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
